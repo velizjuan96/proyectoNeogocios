@@ -93,7 +93,7 @@
                 </button>
             </div>
             <div class="modal-body mx-6">
-
+                <form id="formulario" method="post">
                 <div class="md-form mb-5">
                     <i class="fa fa-user prefix grey-text">
                         <label data-error="wrong" data-success="right" for="orangeForm-name">Producto</label>
@@ -104,9 +104,9 @@
 
                 <div class="md-form mb-5">
                     <i class="fa fa-user prefix grey-text">
-                        <label data-error="wrong" data-success="right" name="cantidad" for="orangeForm-name">Cantidad</label>
+                        <label data-error="wrong" data-success="right" for="orangeForm-name">Cantidad</label>
                     </i>
-                    <input type="text" id="orangeForm-name" class="form-control validate">
+                    <input type="text" id="orangeForm-name"   name="cantidad"  class="form-control validate">
 
                 </div>
 
@@ -115,7 +115,7 @@
                     <i class="fa fa-user prefix grey-text">
                         <label data-error="wrong" data-success="right" for="orangeForm-name">Precio</label>
                     </i>
-                    <input type="text" id="orangeForm-name" class="form-control validate">
+                    <input type="text" id="orangeForm-name" name="precio"  class="form-control validate">
 
                 </div>
 
@@ -123,18 +123,22 @@
 
                 <div class="md-form mb-5">
                     <i class="fa fa-user prefix grey-text">
-                        <label data-error="wrong" data-success="right" for="orangeForm-name">Fecha de la venta</label>
+                        <label data-error="wrong" data-success="right"  for="orangeForm-name">Fecha de la venta</label>
                     </i>
-                    <input type="date" id="orangeForm-name" class="form-control validate">
+                    <input type="date" id="orangeForm-name" name="fecha" class="form-control validate">
 
                 </div>
+
+                </form>
+
+                <div id="resultado"></div>
 
             </div>
             <div class="modal-footer d-flex justify-content-center">
                 <button class="btn btn-deep-orange" id="btn-ingresar" >Enviar</button>
             </div>
 
-            <div id="resultado"></div>
+
         </div>
     </div>
 </div>
