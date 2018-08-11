@@ -3,12 +3,11 @@
 This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 -->
-<?php
-include '../jquery/funciones.php'
-?>
-
-
 <html>
+<?php
+include '../jquery/eliminar_ventas.php'
+//?>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -26,23 +25,16 @@ include '../jquery/funciones.php'
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect. -->
     <link rel="stylesheet" href="../dist/css/skins/skin-blue.min.css">
-
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-
-
     <![endif]-->
-
     <!-- Google Font -->
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
-
-
     <link rel="stylesheet" href="../dist/css/jquery.dataTables.min.css">
-
 </head>
 <!--
 BODY TAG OPTIONS:
@@ -92,34 +84,55 @@ desired effect
                         <!-- Menu toggle button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-envelope-o"></i>
-                            <span class="label label-success">4</span>
+                            <span class="label label-success"><?php
+                                require "../conexion/conexion.php";
+                                $count = current($conexion->query("SELECT COUNT(id)  FROM mensajes")->fetch());
+                                echo $count;
+                                ?></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">You have 4 messages</li>
+                            <li class="header">Tu tienes <?php
+                                require "../conexion/conexion.php";
+                                $count = current($conexion->query("SELECT COUNT(id)  FROM mensajes")->fetch());
+                                echo $count;
+                                ?>  Mensajes de</li>
                             <li>
                                 <!-- inner menu: contains the messages -->
                                 <ul class="menu">
                                     <li><!-- start message -->
-                                        <a href="#">
+                                        <a href="mensajes.php">
                                             <div class="pull-left">
                                                 <!-- User Image -->
-                                                <img src="dist/img/user2-160x160.jpg" class="img-circle"
+                                                <img src="../dist/img/user2-160x160.jpg" class="img-circle"
                                                      alt="User Image">
                                             </div>
                                             <!-- Message title and timestamp -->
                                             <h4>
-                                                Support Team
+                                                <?php
+                                                $busqueda = $conexion->query("Select * from mensajes");
+                                                $arrDatos = $busqueda->fetchAll(PDO::FETCH_ASSOC);
+                                                ?>
+
+                                                <tbody>
+                                                <?php
+                                                foreach ($arrDatos as $muestra) {
+                                                    echo '<td >' . $muestra['nombre'] . '</td> <br /> ';
+
+                                                    echo '<td >' . $muestra['comentario']. '</td> <br /> ';
+                                                    echo '<br>';
+                                                }
+                                                ?>
                                                 <small><i class="fa fa-clock-o"></i> 5 mins</small>
                                             </h4>
                                             <!-- The message -->
-                                            <p>Why not buy a new awesome theme?</p>
+                                            <p>Revisa tus mensajes</p>
                                         </a>
                                     </li>
                                     <!-- end message -->
                                 </ul>
                                 <!-- /.menu -->
                             </li>
-                            <li class="footer"><a href="#">See All Messages</a></li>
+                            <li class="footer"><a href="mensajes.php">Revisar Mensajes</a></li>
                         </ul>
                     </li>
                     <!-- /.messages-menu -->
@@ -129,22 +142,30 @@ desired effect
                         <!-- Menu toggle button -->
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                             <i class="fa fa-bell-o"></i>
-                            <span class="label label-warning">10</span>
+                            <span class="label label-warning"><?php
+                                require "../conexion/conexion.php";
+                                $count = current($conexion->query("SELECT COUNT(id)  FROM ventas")->fetch());
+                                echo $count;
+                                ?></span>
                         </a>
                         <ul class="dropdown-menu">
-                            <li class="header">You have 10 notifications</li>
+                            <li class="header">Tu tienes <?php
+                                require "../conexion/conexion.php";
+                                $count = current($conexion->query("SELECT COUNT(id)  FROM ventas")->fetch());
+                                echo $count;
+                                ?> Ventas</li>
                             <li>
                                 <!-- Inner Menu: contains the notifications -->
                                 <ul class="menu">
                                     <li><!-- start notification -->
-                                        <a href="#">
-                                            <i class="fa fa-users text-aqua"></i> 5 new members joined today
+                                        <a href="venta.php">
+                                            <i class="fa fa-users text-aqua"></i>Revisar ventas
                                         </a>
                                     </li>
                                     <!-- end notification -->
                                 </ul>
                             </li>
-                            <li class="footer"><a href="#">View all</a></li>
+                            <li class="footer"><a href="venta.php">Revisar Ventas</a></li>
                         </ul>
                     </li>
                     <!-- Tasks Menu -->
@@ -280,12 +301,12 @@ desired effect
               </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="#">Venta </a></li>
-                        <li><a href="#">Vendedor</a></li>
+                        <li><a href="venta.php">Venta </a></li>
+                        <li><a href="vendedor.php">Vendedores</a></li>
                         <li><a href="#">Detalle Venta</a></li>
                     </ul>
                 </li>
-                <li><a href="#"><i class="fa fa-link"></i> <span>Cliente</span></a></li>
+                <li><a href="cliente.php"><i class="fa fa-link"></i> <span>Cliente</span></a></li>
                 <li class="treeview">
                     <a href="#"><i class="fa fa-link"></i> <span>Inventario</span>
                         <span class="pull-right-container">
@@ -293,8 +314,8 @@ desired effect
               </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="#">Productos</a></li>
-                        <li><a href="#">Proveedores</a></li>
+                        <li><a href="producto.php">Productos</a></li>
+                        <li><a href="proveedores.php">Proveedores</a></li>
                     </ul>
                 </li>
             </ul>
@@ -308,7 +329,7 @@ desired effect
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-                Page Header
+                Michoacanas-SB
                 <small>Optional description</small>
             </h1>
             <ol class="breadcrumb">
@@ -316,18 +337,7 @@ desired effect
                 <li class="active">Here</li>
             </ol>
         </section>
-        <br>
-        <br>
-        <div class="container-fluid">
-            <ol class="breadcrumb">
-                <li><a href="../index.php">Inicio</a></li>
-                <li><a  href="venta.php">Venta</a></li>
-
-            </ol>
-        </div>
-
         <!-- Main content -->
-
         <?php
         echo include '../modal/modal.php';
         ?>
@@ -340,13 +350,17 @@ desired effect
 
             <div class="row">
                 <div class="col-md-12">
-                    <div class="text-center">
-                        <a href="" class="btn btn-primary btn-lg" style="Position:Absolute; left:1%; top:-10%"
-                           data-toggle="modal"
-                           data-target="#modalRegisterForm">Nueva Venta</a>
-                    </div>
+
                     <div class="panel panel-default">
-                        <div class="panel-heading">Listado de Clientes</div>
+
+                        <div class="panel-heading">Listado de Ventas
+
+                            <div class="text-center">
+                                <a href="" class="btn btn-primary btn-lg"
+                                   data-toggle="modal"
+                                   data-target="#modalRegisterForm">Nueva Venta</a>
+                            </div>
+                        </div>
                         <div class="panel-body">
                             <div class="col-md-12 ">
 
@@ -356,7 +370,6 @@ desired effect
                                 $busqueda = $conexion->query("Select * from ventas");
                                 $arrDatos = $busqueda->fetchAll(PDO::FETCH_ASSOC);
                                 ?>
-
 
                                 <table id="example" class="display" style="width:100%">
                                     <thead>
@@ -382,7 +395,7 @@ desired effect
                                         echo '<td >' . $muestra['fecha_venta'] . '</td>';
 
                                         echo '<td>
-                  <a class="btn btn-danger ajax-request" id="eliminar"  data-target="' . $muestra['Id'] . '">   
+                  <a class="btn btn-danger ajax-request" id="eliminar"  data-target="' .$muestra['Id'] .'">   
                   <i class="fa fa-trash"></i>
                   </a>
                   
@@ -395,19 +408,17 @@ desired effect
                   </a>
                      </td>';
 
-
                                     }
                                     ?>
+
+
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div id="resultado"></div>
             </div>
-
-
             <!-- Sticky Footer -->
             <footer class="sticky-footer">
                 <div class="container my-auto">
@@ -423,6 +434,7 @@ desired effect
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
+
 
     <!-- Main Footer -->
     <footer class="main-footer">
@@ -525,12 +537,12 @@ desired effect
 <!-- Optionally, you can add Slimscroll and FastClick plugins.
      Both of these plugins are recommended to enhance the
      user experience. -->
-</body>
-
-
 <script src="../dist/js/jquery-3.3.1.js"></script>
 <script src="../dist/js/jquery.dataTables.min.js"></script>
 <script src="../dist/js/llamdartabla.js"></script>
 
 
+</body>
+
 </html>
+

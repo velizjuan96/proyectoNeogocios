@@ -58,9 +58,8 @@ include '../jquery/funciones.php'
                 <div class="modal-footer d-flex justify-content-center">
                     <button class="btn btn-deep-orange" id="ingresar">Enviar</button>
                 </div>
-
-
             </div>
         </div>
     </div>
+                <div id="resultado"></div>
 

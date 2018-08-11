@@ -4,39 +4,30 @@ This is a starter template page. Use this page to start your new project from
 scratch. This page gets rid of all links and provides the needed markup only.
 <
 -->
+
+
+
 <?php
 
-error_reporting(E_ALL);
-ini_set('display_errors', '1');
-
-error_reporting(-1);
-
-// No mostrar los errores de PHP
-error_reporting(0);
-
-// Motrar todos los errores de PHP
-error_reporting(E_ALL);
-
-// Motrar todos los errores de PHP
-ini_set('error_reporting', E_ALL);
+include '../jquery/editar_ventas.php';
 
 $id = $_GET['id'];
-$producto = "";
-$precio = "";
-$cantidad ="";
+//$producto = "";
+//$precio = "";
+//$cantidad ="";
 
-$conexion = new PDO("mysql:host=127.0.0.1;dbname=eladeria", "root", "");
-$conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-if ($_POST) {
-    $stmt = $conexion->prepare("SELECT * FROM ventas where Id=:id");
-    $stmt->execute(['id'=>$id]);
-    $arrDatos = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    $producto = $arrDatos['producto'];
-    $cantidad = $arrDatos['cantidad'];
-    $precio = $arrDatos['precio'];
-
-}
+//$conexion = new PDO("mysql:host=127.0.0.1;dbname=eladeria", "root", "");
+//$conexion->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//if ($_POST) {
+//    $stmt = $conexion->prepare("SELECT * FROM ventas where Id=:id");
+//    $stmt->execute(['id'=>$id]);
+//    $arrDatos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+//
+//    $producto = $arrDatos['producto'];
+//    $cantidad = $arrDatos['cantidad'];
+//    $precio = $arrDatos['precio'];
+//
+//}
 ?>
 
 <html>
@@ -324,8 +315,8 @@ desired effect
               </span>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="#">Productos</a></li>
-                        <li><a href="#">Proveedores</a></li>
+                        <li><a href="producto.php">Productos</a></li>
+                        <li><a href="proveedores.php">Proveedores</a></li>
                     </ul>
                 </li>
             </ul>
@@ -339,14 +330,7 @@ desired effect
         <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
-            <?php
 
-            if ($conexion==true){
-                echo "si hay conexion";
-            }else {
-                echo "no";
-            }
-            ?>
                 <small>Optional description</small>
             </h1>
             <ol class="breadcrumb">
@@ -384,47 +368,64 @@ desired effect
                                         <div class="col-md-4">
                                         </div>
                                         <div class="col-md-4">
-                                            <form method="post" action="categoriaactualizar.php" id="formulario">
-                                                <div class="col-sm-12">
-                                                    <label class='control-sidebar-subheading' for="fecha">Id</label>
-                                                    <input type="text" name="id" id="id" required maxlength="255"
-                                                           class="form-control" readonly value="<?php echo $id; ?>"/>
+
+
+                                            <form id="formulario" method="post">
+                                                <div class="md-form mb-5">
+                                                    <i class="fa fa-user prefix grey-text">
+                                                        <label data-error="wrong" data-success="right" for="orangeForm-name">Id</label>
+                                                    </i>
+                                                    <input type="text" name="id" readonly value="<?php echo $id; ?>"  name="producto" class="form-control validate">
+
                                                 </div>
-                                                <div class="col-sm-12">
-                                                    <label class='control-sidebar-subheading'
-                                                           for="fecha">Producto</label>
-                                                    <input type="text" name="producto" id="producto" required
-                                                           maxlength="255" class="form-control"
-                                                           value="<?php echo $producto; ?>"/>
+                                                <div class="md-form mb-5">
+                                                    <i class="fa fa-user prefix grey-text">
+                                                        <label data-error="wrong" data-success="right" for="orangeForm-name">Producto</label>
+                                                    </i>
+                                                    <input type="text" id="orangeForm-name" name="producto" class="form-control validate">
+
                                                 </div>
 
-                                                <div class="col-sm-12">
-                                                    <label class='control-sidebar-subheading'
-                                                           for="fecha">Cantidad</label>
-                                                    <input type="text" name="cantidad" id="cantidad" required
-                                                           maxlength="255" class="form-control"
-                                                           value="<?php echo $cantidad; ?>"/>
-                                                </div>
+                                                <div class="md-form mb-5">
+                                                    <i class="fa fa-user prefix grey-text">
+                                                        <label data-error="wrong" data-success="right" for="orangeForm-name">Cantidad</label>
+                                                    </i>
+                                                    <input type="text" id="orangeForm-name" name="cantidad" class="form-control validate">
 
-                                                <div class="col-sm-12">
-                                                    <label class='control-sidebar-subheading' for="fecha">Precio</label>
-                                                    <input type="text" name="precio" id="precio" required
-                                                           maxlength="255" class="form-control"
-                                                           value="<?php echo $precio; ?>"/>
                                                 </div>
 
 
+                                                <div class="md-form mb-5">
+                                                    <i class="fa fa-user prefix grey-text">
+                                                        <label data-error="wrong" data-success="right" for="orangeForm-name">Precio</label>
+                                                    </i>
+                                                    <input type="text" id="orangeForm-name" name="precio" class="form-control validate">
 
-
-                                                <div class="col-sm-12">
-                                                    <br>
-                                                    <input type="submit" class="btn btn-primary" value="Enviar"
-                                                           disabled/>
                                                 </div>
+
+
+                                                <div class="md-form mb-5">
+                                                    <i class="fa fa-user prefix grey-text">
+                                                        <label data-error="wrong" data-success="right" for="orangeForm-name">Fecha de la
+                                                            venta</label>
+                                                    </i>
+                                                    <input type="date" id="orangeForm-name" name="fecha" class="form-control validate">
+
+                                                </div>
+
+
                                             </form>
-                                        </div>
-                                        <div class="col-md-4">
 
+                                            <div class="modal-footer d-flex justify-content-center">
+                                                <button class="btn btn-deep-orange" id="editar_venta">Enviar</button>
+                                            </div>
+
+                                        </div>
+
+
+                                        </div>
+                                        <div id="resultado"></div>
+                                        <div class="col-md-4">
                                         </div>
                                     </div>
                                 </div>

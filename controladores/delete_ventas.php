@@ -7,16 +7,9 @@
  */
 //$busca="";
 if ($_POST) {
-
-
     $busca = $_POST['id'];
-
-
-
         include '../conexion/conexion.php';
-
         $sql = "delete  from ventas where Id = '" . $busca . "'";
-
         $conexion->exec($sql);
 
       if ($conexion==true){
